@@ -1,0 +1,7 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "hyperjobs-site",
+  "compatibility_date": "2025-09-01",
+  // Site estático: tudo que está em public/ é publicado como está
+  "assets": { "directory": "./public" }
+}

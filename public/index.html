@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- PIXEL META AQUI -->
+<title>HyperJobs</title>
+<meta name="description" content="Seu nome nas primeiras buscas do Google e dos marketplaces, um site novo com atendente de inteligência artificial em inglês 24 horas, e o orçamento pronto no seu WhatsApp. Feito para quem faz obra nos Estados Unidos.">
+<meta property="og:title" content="HyperJobs · Deixe a HyperJobs captando e vendendo enquanto você foca na obra">
+<meta property="og:description" content="Seu nome nas primeiras buscas, o cliente te achando sozinho, e o sistema HyperJobs deixando o orçamento pronto no seu WhatsApp.">
+<meta property="og:image" content="https://hyperjobs.enricodelafiori.workers.dev/brand/og-1200x630.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="brand/apple-touch-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --terra:#0078FA;--terra-lt:#21D0FD;--terra-dp:#005ADC;--terra-2:#14B4FA;
+  --ink:#EEF6FF;--mut:rgba(238,246,255,.62);--mut-2:rgba(238,246,255,.4);
+  --glass:rgba(255,255,255,.055);--glass-2:rgba(255,255,255,.09);--line:rgba(255,255,255,.1);--line-2:rgba(255,255,255,.16);
+  --ff:'Inter',-apple-system,system-ui,sans-serif;--fd:'Poppins',var(--ff);
+  --wrap:1120px;
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased}
+html{scroll-behavior:smooth}
+body{background:linear-gradient(168deg,#0C1A2E,#050B16);color:var(--ink);font-family:var(--ff);line-height:1.55;overflow-x:hidden}
+img{max-width:100%;display:block}a{color:inherit;text-decoration:none}
+b,strong{font-weight:700}.t{color:var(--terra-2)}.amber{color:var(--terra-lt)}
+
+/* ===== canvas contínuo (uma tela só, sem cortes) ===== */
+.canvas{position:fixed;inset:0;z-index:-3;background:
+  radial-gradient(60% 42% at 18% 4%,rgba(33,208,253,.26),transparent 60%),
+  radial-gradient(52% 46% at 88% 16%,rgba(0,90,220,.30),transparent 62%),
+  radial-gradient(80% 55% at 50% 108%,rgba(0,120,250,.22),transparent 66%),
+  linear-gradient(168deg,#0C1A2E,#050B16)}
+.canvas-l1,.canvas-l2{position:fixed;z-index:-2;pointer-events:none;border-radius:50%;filter:blur(70px);mix-blend-mode:screen}
+.canvas-l1{width:60vw;height:60vw;top:-10vw;left:-10vw;background:radial-gradient(closest-side,rgba(33,208,253,.16),transparent 70%)}
+.canvas-l2{width:55vw;height:55vw;bottom:-15vw;right:-10vw;background:radial-gradient(closest-side,rgba(0,120,250,.18),transparent 70%)}
+@keyframes drift1{to{transform:translate(18vw,10vh)}}
+@keyframes drift2{to{transform:translate(-16vw,-8vh)}}
+.canvas-grain{position:fixed;inset:0;z-index:-1;background:var(--grain);opacity:.045;mix-blend-mode:overlay;pointer-events:none}
+
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px;position:relative}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--terra-2);margin-bottom:16px;display:inline-flex;align-items:center;gap:9px}
+.eyebrow::before{content:'';width:20px;height:1px;background:var(--terra)}
+h1,h2,h3{font-family:var(--fd);font-weight:800;letter-spacing:-.03em;line-height:1.03}
+.h2{font-size:clamp(30px,5vw,50px)}
+.sub{font-size:clamp(16px,2vw,19px);color:var(--mut);font-weight:400;margin-top:16px;max-width:52ch}
+section{position:relative;padding:90px 0}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;white-space:nowrap;font-family:var(--ff);font-weight:600;
+  font-size:16px;padding:15px 28px;border-radius:100px;cursor:pointer;border:1px solid transparent;transition:transform .16s,box-shadow .22s,background .2s}
+.btn svg{width:18px;height:18px}
+.btn-primary{background:var(--terra);color:#fff;box-shadow:0 14px 36px -12px rgba(0,120,250,.7),inset 0 0 0 1px rgba(255,255,255,.12)}
+.btn-primary:hover{background:var(--terra-2);transform:translateY(-2px)}
+.btn-glass{background:var(--glass);color:var(--ink);border-color:var(--line-2);backdrop-filter:blur(8px)}
+.btn-glass:hover{background:var(--glass-2)}
+.cta-row{display:flex;gap:13px;flex-wrap:wrap;margin-top:32px}
+
+/* brand lockup (tile + wordmark, assinatura HyperJobs) */
+.brand{display:inline-flex;align-items:center;gap:11px}
+.brand-tile{width:32px;height:32px;border-radius:9px;display:block;flex:none}
+.brand-word{font-family:var(--fd);font-weight:600;font-size:17px;letter-spacing:.01em;color:#fff;line-height:1}
+@media(max-width:520px){.brand-tile{width:27px;height:27px}.brand-word{font-size:15px}}
+
+/* header */
+header{position:fixed;top:0;left:0;right:0;z-index:40;transition:background .3s,backdrop-filter .3s,border-color .3s;border-bottom:1px solid transparent}
+header.scrolled{background:rgba(5,11,22,.7);backdrop-filter:blur(16px);border-color:var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+.nav .logo{height:25px}
+.hotbar{display:flex;gap:3px;background:var(--glass);border:1px solid var(--line-2);backdrop-filter:blur(12px);border-radius:100px;padding:5px}
+.hotbar a{padding:9px 17px;border-radius:100px;font-size:14px;font-weight:600;color:var(--mut);transition:background .2s,color .2s;white-space:nowrap}
+.hotbar a:hover{background:var(--glass-2);color:var(--ink)}
+@media(max-width:520px){.hotbar a{padding:8px 12px;font-size:12.5px}.nav .logo{height:21px}}
+@media(max-width:420px){.hotbar a:nth-child(3){display:none}}
+
+/* ===== hero ===== */
+.hero{min-height:92vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:120px 0 70px}
+.hero-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1;opacity:.10;filter:blur(3px);transform:scale(1.5);mix-blend-mode:screen;animation:vidIn 2.2s ease .2s both}
+.hero-in{max-width:980px;padding:0 24px}
+.hero h1{font-size:clamp(38px,6.6vw,62px)}
+.hero-h1 .ln{display:block;opacity:0;transform:translateY(32px);filter:blur(12px);animation:lnIn .9s cubic-bezier(.2,.75,.2,1) both}
+.hero-h1 .ln:nth-child(1){animation-delay:.3s}.hero-h1 .ln:nth-child(2){animation-delay:.47s}.hero-h1 .ln:nth-child(3){animation-delay:.64s}
+.hero .sub{font-size:clamp(17px,2.3vw,21px);margin-left:auto;margin-right:auto;color:rgba(238,246,255,.82);opacity:0;animation:enUp .7s ease .9s both}
+.hero .cta-row{justify-content:center;opacity:0;animation:enUp .7s ease 1.04s both}
+.hero-badge{display:inline-flex;align-items:center;gap:9px;white-space:nowrap;margin:0 0 22px;opacity:0;animation:enUp .7s ease .1s both;
+  background:rgba(0,120,250,.14);border:1px solid rgba(0,120,250,.5);
+  padding:8px 18px;border-radius:100px;font-size:clamp(11px,2.8vw,13px);font-weight:600;letter-spacing:.02em;color:#D6E8FF}
+.hero-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--terra-2);box-shadow:0 0 10px var(--terra-2)}
+.hero-scroll{position:absolute;bottom:24px;left:50%;z-index:5;color:rgba(255,255,255,.5);animation:heroArrow 1.7s ease-in-out infinite}
+.hero-scroll svg{width:30px;height:30px}
+@keyframes heroArrow{0%,100%{transform:translateX(-50%) translateY(0);opacity:.45}50%{transform:translateX(-50%) translateY(8px);opacity:1}}
+@keyframes enUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes enDown{from{opacity:0;transform:translate(-50%,-14px)}to{opacity:1;transform:translate(-50%,0)}}
+@keyframes lnIn{to{opacity:1;transform:none;filter:blur(0)}}
+@keyframes vidIn{from{opacity:0}to{opacity:.10}}
+@media(max-width:520px){.hero .cta-row{flex-direction:column;align-items:stretch;gap:12px;width:100%;max-width:320px;margin-left:auto;margin-right:auto}.hero .cta-row .btn{width:100%;padding:15px 16px;font-size:16px}}
+
+/* ===== glass cards genéricos ===== */
+.card{background:var(--glass);border:1px solid var(--line);border-radius:20px;backdrop-filter:blur(10px);padding:28px;box-shadow:0 20px 50px -30px rgba(0,0,0,.6)}
+
+/* pain */
+.pains{display:grid;gap:16px;margin-top:44px}
+@media(min-width:820px){.pains{grid-template-columns:repeat(3,1fr)}}
+.pain .pn{font-family:var(--fd);font-weight:800;font-size:15px;color:var(--terra-2);margin-bottom:12px}
+.pain h3{font-family:var(--fd);font-weight:600;font-size:20px;margin-bottom:8px}
+.pain p{color:var(--mut);font-size:14.5px;line-height:1.6}
+
+/* ===== walk (mockup fixo que troca de tela ao rolar) ===== */
+.walk-head{text-align:center;padding-bottom:0}
+.walk-inner{max-width:var(--wrap);margin:0 auto;padding:0 24px;display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:start}
+.walk-steps{display:flex;flex-direction:column}
+.wstep{min-height:74vh;display:flex;flex-direction:column;justify-content:center;opacity:.35;transition:opacity .45s}
+.wstep.active{opacity:1}
+.wstep .wn{font-family:var(--fd);font-weight:800;font-size:14px;color:var(--terra-2);letter-spacing:.05em;margin-bottom:14px}
+.wstep h3{font-family:var(--fd);font-weight:700;font-size:clamp(26px,3.4vw,36px);margin-bottom:14px}
+.wstep p{color:var(--mut);font-size:16px;line-height:1.6;max-width:40ch}
+.wstep .bar{margin-top:22px;height:3px;width:120px;background:var(--line);border-radius:3px;overflow:hidden}
+.wstep .bar i{display:block;height:100%;width:0;background:var(--terra);transition:width .4s}
+.wstep.active .bar i{width:100%;transition:width 3.4s linear}
+.walk-phone{position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center}
+.walk-phone .halo{position:absolute;width:135%;height:80%;background:radial-gradient(50% 50% at 50% 48%,rgba(33,208,253,.34),transparent 68%);filter:blur(40px);animation:haloPulse 6s ease-in-out infinite}
+@keyframes haloPulse{0%,100%{opacity:.82;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
+.phone{position:relative;z-index:2;width:min(338px,92%);animation:phoneFloat 6.5s ease-in-out infinite}
+@keyframes phoneFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.phone-frame{position:relative;border-radius:34px;padding:5px;
+  background:linear-gradient(150deg,#2e3a4a 0%,#0a1422 32%,#0a1019 100%);
+  box-shadow:0 50px 100px -30px rgba(0,20,60,.85),0 0 0 1px rgba(255,255,255,.05),inset 0 1px 1px rgba(255,255,255,.16);
+  -webkit-mask-image:linear-gradient(90deg,#000 0%,#000 82%,rgba(0,0,0,.45) 93%,transparent 100%);
+  mask-image:linear-gradient(90deg,#000 0%,#000 82%,rgba(0,0,0,.45) 93%,transparent 100%)}
+.phone-frame::after{content:'';position:absolute;top:14px;left:50%;transform:translateX(-50%);width:26%;height:15px;background:#03060C;border-radius:0 0 12px 12px;z-index:5}
+.phone-frame::before{content:'';position:absolute;right:-2px;top:27%;width:3px;height:52px;border-radius:2px;background:linear-gradient(#2e3a4a,#0a1422);z-index:1}
+.phone-frame img{border-radius:30px;width:100%;transition:opacity .4s ease;display:block}
+.phone-frame .screen-gloss{position:absolute;inset:5px;border-radius:30px;pointer-events:none;z-index:4;
+  background:linear-gradient(128deg,rgba(255,255,255,.15) 0%,rgba(255,255,255,.03) 22%,transparent 42%,transparent 72%,rgba(255,255,255,.06) 100%);mix-blend-mode:overlay}
+/* dissolução: só a bordinha direita vira partícula orgânica que flui até a borda */
+.dissolve{position:absolute;left:76%;top:0;bottom:0;width:min(60vw,460px);z-index:3;pointer-events:none;overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 14%,#000 30%,transparent 90%),linear-gradient(180deg,transparent 0%,#000 26%,#000 74%,transparent 100%);
+  -webkit-mask-composite:source-in;
+  mask-image:linear-gradient(90deg,transparent 0%,#000 14%,#000 30%,transparent 90%),linear-gradient(180deg,transparent 0%,#000 26%,#000 74%,transparent 100%);
+  mask-composite:intersect}
+.dissolve-parts{position:absolute;inset:-30px;
+  background:linear-gradient(90deg,rgba(33,208,253,.5) 0%,rgba(0,120,250,.16) 44%,transparent 80%);
+  mix-blend-mode:screen;animation:dissolveDrift 6s linear infinite;
+  -webkit-mask-image:var(--grain);mask-image:var(--grain);-webkit-mask-size:110px 110px;mask-size:110px 110px}
+@keyframes dissolveDrift{from{-webkit-mask-position:0 0;mask-position:0 0}to{-webkit-mask-position:40px 0;mask-position:40px 0}}
+@media(max-width:860px){
+  .walk-inner{grid-template-columns:1fr;gap:0}
+  .walk-phone{position:sticky;top:60px;height:auto;padding:14px 0;order:-1;z-index:5}
+  .walk-phone::before{content:'';position:absolute;inset:-20px 0;background:linear-gradient(180deg,transparent,rgba(5,11,22,.6) 40%,transparent);z-index:-1}
+  .phone{width:min(210px,54%)}
+  .wstep{min-height:auto;padding:26px 0;text-align:center;opacity:1}
+  .wstep p{margin-left:auto;margin-right:auto}.wstep .bar{margin-left:auto;margin-right:auto}
+}
+
+/* incluso (chips) */
+.incl{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:36px}
+.incl span{display:inline-flex;align-items:center;gap:9px;background:var(--glass);border:1px solid var(--line);border-radius:100px;padding:11px 18px;font-size:14.5px;font-weight:500;color:var(--ink)}
+.incl span svg{width:16px;height:16px;stroke:var(--terra-2);fill:none;stroke-width:2}
+
+/* feito pra obra : foto em background */
+.obra-sec{position:relative;overflow:hidden;padding:118px 0}
+.obra-photo-bg{position:absolute;inset:0;z-index:0;background:url('media/photos/roofing.jpg') center/cover;filter:grayscale(.2) brightness(.85) contrast(1.05)}
+.obra-photo-bg::before{content:'';position:absolute;inset:0;background:linear-gradient(160deg,rgba(33,208,253,.4),rgba(5,11,22,.4));mix-blend-mode:color}
+.obra-photo-bg::after{content:'';position:absolute;inset:0;
+  background:
+    linear-gradient(90deg,rgba(5,11,22,.94),rgba(5,11,22,.68) 55%,rgba(5,11,22,.42)),
+    linear-gradient(180deg,#050B16 0%,rgba(5,11,22,.15) 22%,rgba(5,11,22,.15) 74%,#050B16 100%)}
+.obra-sec .wrap{position:relative;z-index:2}
+.obra-sec h2{max-width:14ch}
+.obra-tags{display:flex;flex-wrap:wrap;gap:9px;margin-top:26px}
+.obra-tags span{font-size:13px;font-weight:600;color:var(--mut);border:1px solid var(--line-2);background:rgba(255,255,255,.06);backdrop-filter:blur(6px);padding:8px 14px;border-radius:100px}
+
+/* anchor */
+.arow{display:grid;gap:16px;margin-top:40px}
+@media(min-width:760px){.arow{grid-template-columns:repeat(3,1fr)}}
+.acard .av{font-family:var(--fd);font-weight:800;font-size:26px}
+.acard .al{font-size:14px;color:var(--mut);margin-top:8px;line-height:1.55}
+
+/* offer */
+.offer-grid{display:grid;gap:52px;align-items:center}
+@media(min-width:900px){.offer-grid{grid-template-columns:1.02fr .98fr}}
+.offer-copy h2{max-width:13ch}
+.offer-notes{list-style:none;margin-top:26px;display:grid;gap:12px}
+.offer-notes li{position:relative;padding-left:26px;color:var(--mut);font-size:15px}
+.offer-notes li::before{content:'✓';position:absolute;left:0;top:-1px;color:var(--terra-lt);font-weight:700}
+.price-card{max-width:none;margin:0;text-align:left}
+@media(max-width:899px){.offer-copy{text-align:center}.offer-copy h2,.offer-copy .sub{margin-left:auto;margin-right:auto}.offer-notes{max-width:320px;margin-left:auto;margin-right:auto}.price-card{max-width:480px;margin:0 auto}}
+.price-card{background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.04));border:1px solid var(--line-2);border-radius:24px;padding:38px 34px;backdrop-filter:blur(12px);box-shadow:0 40px 90px -30px rgba(0,0,0,.7)}
+.ptag{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--terra-2);background:rgba(0,120,250,.16);padding:6px 14px;border-radius:100px;margin-bottom:20px}
+.pbig{font-family:var(--fd);font-weight:800;font-size:54px;line-height:1;letter-spacing:-.03em}
+.pbig small{display:block;letter-spacing:0;font-size:15px;font-weight:500;color:var(--mut);margin-top:8px;line-height:1.35}
+.pthen{font-size:15px;color:var(--mut);margin-top:12px}.pthen b{color:var(--ink)}
+.plist{list-style:none;margin:24px 0;display:grid;gap:12px}
+.plist li{display:flex;gap:12px;align-items:flex-start;font-size:15px;color:rgba(238,246,255,.86)}
+.plist li svg{width:19px;height:19px;flex:0 0 auto;margin-top:2px}
+.price-card .btn{width:100%;margin-top:4px}
+.pfine{text-align:center;font-size:13px;color:var(--mut-2);margin-top:14px}
+
+/* faq */
+.faq{max-width:788px;margin:44px auto 0;padding:0 24px;display:grid;gap:12px}
+.faq details{background:var(--glass);border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:border-color .2s,background .2s}
+.faq details:hover{border-color:var(--line-2);background:var(--glass-2)}
+.faq summary{list-style:none;cursor:pointer;padding:20px 22px;font-family:var(--fd);font-weight:600;font-size:16px;display:flex;justify-content:space-between;gap:16px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .pm{flex:0 0 auto;width:30px;height:30px;border-radius:50%;background:var(--glass);border:1px solid var(--line);position:relative;transition:background .25s,border-color .25s}
+.faq details[open] summary .pm{background:rgba(0,120,250,.2);border-color:rgba(0,120,250,.5)}
+.faq summary .pm::before,.faq summary .pm::after{content:'';position:absolute;background:var(--terra-2);border-radius:2px}
+.faq summary .pm::before{top:14px;left:9px;right:9px;height:2px}
+.faq summary .pm::after{left:14px;top:9px;bottom:9px;width:2px;transition:transform .3s}
+.faq details[open] summary .pm::after{transform:scaleY(0)}
+.faq .fa{padding:0 22px 20px;font-size:14.5px;color:var(--mut);line-height:1.65}
+
+/* final */
+.final{text-align:center}.final h2{max-width:16ch;margin:0 auto}
+
+/* footer */
+footer{border-top:1px solid var(--line);padding:56px 0 120px;margin-top:40px}
+.ig-ico{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);color:var(--mut);transition:color .2s,border-color .2s}
+.ig-ico:hover{color:var(--ink);border-color:var(--line-2)}
+.ig-ico svg{width:18px;height:18px}
+.flinks{align-items:center}
+.foot{display:flex;flex-wrap:wrap;gap:22px;justify-content:space-between;align-items:center}
+.foot .logo{height:23px;opacity:.85}
+.foot .flinks{display:flex;gap:24px;font-size:14px;color:var(--mut)}.foot .flinks a:hover{color:var(--ink)}
+.foot .copy{width:100%;font-size:13px;color:var(--mut-2);margin-top:6px}
+@media(max-width:520px){.foot .flinks{flex-wrap:wrap;gap:12px 20px}.foot .flinks a{white-space:nowrap}}
+
+/* sticky mobile cta : pill flutuante */
+.mbar{position:fixed;left:16px;right:88px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:45;transform:translateY(170%);transition:transform .42s cubic-bezier(.2,.85,.25,1)}
+.mbar.show{transform:none}
+.mbar .btn{width:100%;padding:16px 20px}
+@media(min-width:860px){.mbar{display:none}}
+
+.rv{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+/* feedback ao clicar */
+.btn,.tool,.pain,.acard,.card,.faq summary,.tab,.incl span,.obra-tags span,.hotbar a,.chat-quick button{transition:transform .12s ease, background .25s ease, border-color .25s ease, box-shadow .22s ease, color .2s ease}
+.btn:active{transform:scale(.95)}
+.tool:active,.pain:active,.acard:active,.card:active,.faq summary:active,.tab:active,.incl span:active,.obra-tags span:active,.hotbar a:active,.chat-quick button:active,.chat-fab:active,.mbar .btn:active,.chat-play:active{transform:scale(.97)}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.001s!important}.hero-vid{opacity:.1}}
+
+/* ===== chat atendente ===== */
+.chat-fab{position:fixed;right:18px;bottom:calc(86px + env(safe-area-inset-bottom));z-index:50;height:50px;padding:0 20px;border-radius:100px;border:1px solid rgba(255,255,255,.3);
+  background:linear-gradient(150deg,rgba(33,208,253,.86),rgba(0,90,220,.92));backdrop-filter:blur(10px);color:#fff;cursor:pointer;display:inline-flex;align-items:center;gap:9px;overflow:visible;font-family:var(--ff);font-weight:700;font-size:15px;
+  box-shadow:0 12px 30px -8px rgba(0,120,250,.5),inset 0 1px 0 rgba(255,255,255,.25),0 4px 12px rgba(0,0,0,.3);transition:transform .2s,box-shadow .2s}
+.chat-fab-lbl{white-space:nowrap}
+.chat-fab:hover{transform:translateY(-2px);box-shadow:0 18px 40px -10px rgba(0,120,250,.65),inset 0 1px 0 rgba(255,255,255,.25),0 4px 12px rgba(0,0,0,.3)}
+.chat-fab svg{width:21px;height:21px}
+.chat-fab .chat-dot{position:absolute;top:-3px;right:-1px;width:14px;height:14px;border-radius:50%;background:#21D0FD;border:2.5px solid #050B16;box-shadow:0 0 10px rgba(33,208,253,.9)}
+.chat-fab.open{transform:scale(.85);opacity:0;pointer-events:none}
+.chat-nudge{position:fixed;right:18px;bottom:calc(84px + env(safe-area-inset-bottom));z-index:49;max-width:240px;
+  background:rgba(8,18,31,.82);backdrop-filter:blur(14px);border:1px solid var(--line-2);border-radius:16px;border-bottom-right-radius:5px;
+  padding:13px 30px 13px 15px;font-size:13.5px;line-height:1.45;color:var(--ink);box-shadow:0 18px 44px -14px rgba(0,0,0,.65);
+  cursor:pointer;opacity:0;transform:translateY(10px) scale(.95);pointer-events:none;transition:opacity .4s,transform .4s}
+.chat-nudge.show{opacity:1;transform:none;pointer-events:auto}
+.chat-nudge b{color:var(--terra-2)}
+.chat-nudge-x{position:absolute;top:5px;right:8px;background:none;border:0;color:var(--mut);font-size:17px;line-height:1;cursor:pointer;padding:2px 4px}
+.chat-nudge-x:hover{color:var(--ink)}
+.chat-panel{position:fixed;right:20px;bottom:calc(86px + env(safe-area-inset-bottom));z-index:51;width:360px;max-width:calc(100vw - 32px);height:520px;max-height:calc(100vh - 40px);
+  background:#08121F;border:1px solid var(--line-2);border-radius:22px;overflow:hidden;display:flex;flex-direction:column;
+  box-shadow:0 40px 90px -20px rgba(0,0,0,.75);transform:translateY(24px) scale(.96);opacity:0;pointer-events:none;transform-origin:bottom right;transition:transform .28s cubic-bezier(.2,.8,.25,1),opacity .28s}
+.chat-panel.open{transform:none;opacity:1;pointer-events:auto}
+.chat-head{display:flex;align-items:center;gap:12px;padding:16px 18px;background:linear-gradient(150deg,#14B4FA,#005ADC);color:#fff}
+.chat-av{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-weight:700;font-size:17px;flex:0 0 auto}
+.chat-who{flex:1;line-height:1.25}.chat-who b{font-size:15px;font-weight:600}
+.chat-who span{display:flex;align-items:center;gap:6px;font-size:12px;opacity:.9;margin-top:1px}
+.chat-who span i{width:7px;height:7px;border-radius:50%;background:#67E7FE;box-shadow:0 0 7px #67E7FE}
+.chat-x{background:none;border:0;color:#fff;font-size:26px;line-height:1;cursor:pointer;opacity:.85;padding:0 2px}
+.chat-body{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:82%;padding:11px 14px;border-radius:16px;font-size:14px;line-height:1.5;animation:msgIn .3s ease}
+.msg.bot{background:var(--glass-2);border:1px solid var(--line);color:var(--ink);align-self:flex-start;border-bottom-left-radius:5px}
+.msg.me{background:var(--terra);color:#fff;align-self:flex-end;border-bottom-right-radius:5px}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.typing{align-self:flex-start;display:flex;gap:4px;padding:13px 15px;background:var(--glass-2);border:1px solid var(--line);border-radius:16px;border-bottom-left-radius:5px}
+.typing i{width:7px;height:7px;border-radius:50%;background:var(--mut);animation:tb 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes tb{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+.chat-quick{display:flex;flex-wrap:wrap;gap:7px;padding:0 14px 10px}
+.chat-quick button{font-size:12.5px;font-weight:500;color:var(--terra-2);background:rgba(0,120,250,.12);border:1px solid rgba(0,120,250,.35);border-radius:100px;padding:7px 13px;cursor:pointer;transition:background .2s}
+.chat-quick button:hover{background:rgba(0,120,250,.22)}
+.chat-input{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--line);background:#08121F}
+.chat-input input{flex:1;background:var(--glass);border:1px solid var(--line);border-radius:100px;padding:11px 16px;color:var(--ink);font-family:var(--ff);font-size:14px;outline:none}
+.chat-input input:focus{border-color:var(--line-2)}
+.chat-input button{width:42px;height:42px;flex:0 0 auto;border-radius:50%;border:0;background:var(--terra);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.chat-input button svg{width:18px;height:18px}
+@media(max-width:560px){.chat-panel{right:12px;left:12px;bottom:calc(82px + env(safe-area-inset-bottom));width:auto;height:min(520px,72vh)}.chat-fab{right:16px;bottom:calc(82px + env(safe-area-inset-bottom))}}
+</style>
+</head>
+<body>
+<div class="canvas"></div><div class="canvas-l1"></div><div class="canvas-l2"></div><div class="canvas-grain"></div>
+
+<header id="hd">
+  <div class="wrap nav">
+    <a class="brand" href="#" aria-label="HyperJobs">
+      <img class="brand-tile" src="brand/hj-symbol.png" alt="">
+      <span class="brand-word">HyperJobs</span>
+    </a>
+    <nav class="hotbar">
+      <a href="#app">O sistema</a><a href="#preco">A oferta</a><a class="js-wa" href="https://ig.me/m/hyperjobs" target="_blank" rel="noopener">Manda mensagem</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-in">
+    <div class="hero-badge">Feito pro brasileiro da construção nos EUA</div>
+    <h1 class="hero-h1"><span class="ln">Deixe a HyperJobs</span><span class="ln">captando e vendendo</span><span class="ln">enquanto você foca na obra.</span></h1>
+    <p class="sub">Seu nome nas primeiras buscas, o cliente te achando sozinho, e o sistema HyperJobs deixando o orçamento pronto no seu WhatsApp.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary js-wa" href="https://ig.me/m/hyperjobs" target="_blank" rel="noopener">Manda mensagem</a>
+      <a class="btn btn-glass" href="#app">Ver o sistema</a>
+    </div>
+  </div>
+  <a class="hero-scroll" href="#problema" aria-label="Rolar para ver mais"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 10l5 5 5-5"/></svg></a>
+</section>
+
+<!-- PAIN -->
+<section id="problema">
+  <div class="wrap">
+    <div class="eyebrow rv">O problema</div>
+    <h2 class="h2 rv">Não falta serviço. Falta cliente chegando sozinho.</h2>
+    <div class="pains">
+      <div class="pain card rv"><div class="pn">01</div><h3>Depende de indicação</h3><p>Quando o boca a boca para, o mês para junto. Você não escolhe quando o telefone toca.</p></div>
+      <div class="pain card rv"><div class="pn">02</div><h3>Anúncio não resolveu</h3><p>Você já tentou ou já ouviu falar. Vem gente desqualificada, não atende, some.</p></div>
+      <div class="pain card rv"><div class="pn">03</div><h3>O cliente esfria</h3><p>Você manda o preço e volta pra obra. Quando lembra de responder, o serviço já foi pra quem respondeu primeiro.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- WALK : mockup fixo, tela troca ao rolar -->
+<section id="app" class="walk-head">
+  <div class="wrap" style="text-align:center">
+    <div class="eyebrow rv" style="justify-content:center">A solução</div>
+    <h2 class="h2 rv">O americano procura no Google. Agora ele acha você.</h2>
+    <p class="sub rv" style="margin-left:auto;margin-right:auto">Sua empresa aparece nas primeiras buscas do Google e dos marketplaces, o cliente te encontra, e o sistema HyperJobs conduz até o orçamento. Sem anúncio pago.</p>
+  </div>
+</section>
+<style>
+.appgrid{max-width:var(--wrap);margin:0 auto;padding:0 24px;display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.appc{display:flex;gap:22px;align-items:center;background:var(--glass);border:1px solid var(--line);border-radius:22px;padding:24px}
+.appc-ph{flex:none;width:120px;border-radius:20px;overflow:hidden;background:#000;border:1px solid rgba(255,255,255,.09);box-shadow:0 16px 40px rgba(0,0,0,.5),0 0 0 1.5px rgba(255,255,255,.05)}
+.appc-ph img{width:100%;display:block}
+.appc .wn{font-family:var(--fd);font-weight:800;font-size:13px;color:var(--terra-2);letter-spacing:.05em;margin-bottom:9px}
+.appc h3{font-family:var(--fd);font-weight:700;font-size:clamp(19px,2.4vw,23px);margin-bottom:9px;line-height:1.12}
+.appc p{color:var(--mut);font-size:14.5px;line-height:1.55}
+@media(max-width:820px){.appgrid{grid-template-columns:1fr;gap:18px}}
+@media(max-width:460px){.appc{flex-direction:column;text-align:center;gap:18px}.appc-ph{width:150px}}
+</style>
+<div class="appgrid">
+  <article class="appc rv"><div class="appc-ph"><img src="lp-assets/site.png" alt="Tela do site novo da sua empresa, no ar, com o atendente de inteligência artificial" loading="lazy"></div><div><div class="wn">01 · SEU SITE</div><h3>Seu site novo, pronto pra ser achado.</h3><p>A HyperJobs monta um site novo da sua empresa, já com as configurações que fazem ele aparecer nas primeiras buscas e com um atendente de inteligência artificial dentro.</p></div></article>
+  <article class="appc rv"><div class="appc-ph"><img src="lp-assets/buscas.png" alt="Busca do Google com a sua empresa em primeiro lugar, sem anúncio pago" loading="lazy"></div><div><div class="wn">02 · GOOGLE</div><h3>Sua empresa nas primeiras buscas.</h3><p>O sistema HyperJobs coloca a sua empresa entre os primeiros resultados do Google e dos marketplaces da sua região, sem anúncio pago.</p></div></article>
+  <article class="appc rv"><div class="appc-ph"><img src="lp-assets/atendente.png" alt="Conversa em inglês do atendente com o homeowner, que vira orçamento pronto no seu WhatsApp" loading="lazy"></div><div><div class="wn">03 · ORÇAMENTO</div><h3>O atendente responde por você.</h3><p>Em inglês, 24 horas por dia, ele conversa com o homeowner e deixa o orçamento pronto no seu WhatsApp. Não tem demora.</p></div></article>
+  <article class="appc rv"><div class="appc-ph"><img src="lp-assets/time.png" alt="Tela de acompanhamento com buscas, atendente, redes sociais e o time ao seu lado" loading="lazy"></div><div><div class="wn">04 · ACOMPANHAMENTO</div><h3>E o time acompanha de perto.</h3><p>Redes sociais no ar e gente de verdade ao seu lado, do primeiro contato até o serviço fechado.</p></div></article>
+</div>
+
+<!-- DEMO REAL -->
+<style>
+#demo{padding:64px 0 20px}
+.demo-wrap{max-width:1000px;margin:0 auto;padding:0 20px;text-align:center}
+.demo-stage{position:relative;display:inline-block;margin-top:30px}
+.demo-phone{position:relative;width:300px;max-width:76vw;aspect-ratio:9/19.5;border-radius:38px;overflow:hidden;background:#000;box-shadow:0 0 0 2px rgba(255,255,255,.06),0 30px 80px rgba(0,0,0,.6),0 0 60px rgba(0,120,250,.18)}
+.demo-phone video{width:100%;height:100%;object-fit:cover;display:block}
+.demo-ov{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:8px;padding-bottom:26px;cursor:pointer;background:linear-gradient(transparent 55%,rgba(0,0,0,.55));transition:opacity .3s}
+.demo-ov.gone{opacity:0;pointer-events:none}
+.demo-ov b{color:#fff;font-weight:600;font-size:15px}
+.demo-ov .pill{display:flex;align-items:center;gap:7px;background:var(--terra);color:#fff;font-weight:700;font-size:13px;padding:9px 16px;border-radius:999px;box-shadow:0 8px 24px rgba(0,120,250,.4)}
+.demo-halo{position:absolute;inset:-40px;z-index:-1;background:radial-gradient(closest-side,rgba(0,120,250,.22),transparent 70%);filter:blur(10px)}
+</style>
+
+
+<!-- INCLUSO -->
+<section id="ferramentas" style="padding-top:40px">
+  <div class="wrap" style="text-align:center">
+    <div class="eyebrow rv" style="justify-content:center">Tudo incluso</div>
+    <h2 class="h2 rv">Do primeiro contato ao orçamento.</h2>
+    <div class="incl rv">
+      <span><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Primeiras buscas</span>
+      <span><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Avaliações no Google</span>
+      <span><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Site novo</span>
+      <span><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Atendente em inglês</span>
+      <span><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Orçamento no WhatsApp</span>
+      <span><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Redes sociais</span>
+      <span><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg> Acompanhamento</span>
+    </div>
+  </div>
+</section>
+
+<!-- B: A IA TE DIZ O QUE FAZER -->
+<style>
+#iafaz{padding:70px 0}
+.iaf-grid{max-width:1080px;margin:0 auto;padding:0 20px;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.iaf-copy .h2{margin:10px 0 14px}
+.iaf-list{display:flex;flex-direction:column;gap:14px;margin-top:24px}
+.iaf-item{display:flex;gap:13px;align-items:flex-start}
+.iaf-ic{flex:none;width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:rgba(0,120,250,.14);border:1px solid rgba(0,120,250,.3)}
+.iaf-ic svg{width:19px;height:19px;stroke:var(--terra-lt);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.iaf-ic.amber{background:rgba(33,208,253,.13);border-color:rgba(33,208,253,.3)}
+.iaf-ic.amber svg{stroke:var(--terra-lt)}
+.iaf-item b{display:block;color:var(--ink);font-size:16px;font-weight:600}
+.iaf-item span{color:rgba(238,246,255,.6);font-size:14px;line-height:1.4}
+.iaf-stage{position:relative;justify-self:center}
+.iaf-phone{position:relative;width:290px;max-width:74vw;border-radius:36px;overflow:hidden;background:#000;box-shadow:0 0 0 2px rgba(255,255,255,.06),0 30px 80px rgba(0,0,0,.6),0 0 60px rgba(0,120,250,.16)}
+.iaf-phone img{width:100%;display:block}
+.iaf-halo{position:absolute;inset:-40px;z-index:-1;background:radial-gradient(closest-side,rgba(0,120,250,.2),transparent 70%);filter:blur(10px)}
+@media(max-width:820px){.iaf-grid{grid-template-columns:1fr;gap:32px;text-align:center}.iaf-stage{order:-1}.iaf-item{text-align:left}.iaf-list{max-width:420px;margin-left:auto;margin-right:auto}}
+</style>
+<section id="iafaz">
+  <div class="iaf-grid">
+    <div class="iaf-copy">
+      <div class="eyebrow rv">Inteligência</div>
+      <h2 class="h2 rv">O cliente chega enquanto você trabalha.</h2>
+      <p class="sub rv">Não é só ter um site. O atendente de inteligência artificial da HyperJobs fala inglês 24 horas, conversa com o homeowner e deixa o orçamento pronto no seu WhatsApp.</p>
+      <div class="iaf-list rv">
+        <div class="iaf-item"><span class="iaf-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><b>Ele te acha no Google</b><span>Homeowner procura o serviço na sua região, no Google ou nos marketplaces, e encontra a sua empresa.</span></div></div>
+        <div class="iaf-item"><span class="iaf-ic amber"><svg viewBox="0 0 24 24"><path d="M12 2l3 6 6 .9-4.5 4.3 1 6.3L12 17l-5.5 2.9 1-6.3L3 8.9 9 8z"/></svg></span><div><b>Você só confere o orçamento</b><span>O atendente deixa tudo pronto no seu WhatsApp. Você confere, vai na casa dele e fecha.</span></div></div>
+        <div class="iaf-item"><span class="iaf-ic"><svg viewBox="0 0 24 24"><path d="M4 4v6h6"/><path d="M20 20v-6h-6"/><path d="M20 10a8 8 0 0 0-14-3M4 14a8 8 0 0 0 14 3"/></svg></span><div><b>O sistema HyperJobs conduz até o fechamento</b><span>Atende em inglês, a qualquer hora, e o time acompanha até o serviço fechado. Você fica na obra.</span></div></div>
+      </div>
+    </div>
+    <div class="iaf-stage rv">
+      <span class="iaf-halo"></span>
+      <div class="iaf-phone"><img src="lp-assets/whatsapp.png" alt="O orçamento pronto chegando no seu WhatsApp" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEITO PRA OBRA (foto em background) -->
+<section id="obra" class="obra-sec">
+  <div class="obra-photo-bg"></div>
+  <div class="wrap">
+    <div class="eyebrow rv">Feito pra obra</div>
+    <h2 class="h2 rv">Você toca a obra.<br>A HyperJobs toca o comercial.</h2>
+    <p class="sub rv">Enquanto você levanta parede, fecha piso e entrega o job, a HyperJobs cuida das buscas, do site, do atendimento e do orçamento, no seu jeito, na sua marca.</p>
+    <div class="obra-tags rv">
+      <span>Remodeling</span><span>Painting</span><span>Flooring</span><span>Fence</span><span>Roofing</span><span>HVAC</span>
+    </div>
+  </div>
+</section>
+
+<!-- ANCHOR -->
+<section style="text-align:center">
+  <div class="wrap">
+    <div class="eyebrow rv" style="justify-content:center">Antes de falar da oferta</div>
+    <h2 class="h2 rv">Ficar dependendo de indicação custa mais.</h2>
+    <div class="arow">
+      <div class="acard card rv"><div class="av">Indicação</div><div class="al">quando o boca a boca para, o mês para junto.</div></div>
+      <div class="acard card rv"><div class="av">Sua margem</div><div class="al">obra fechada direto com o homeowner é sua, sem contratista no meio.</div></div>
+      <div class="acard card rv"><div class="av"><span style="font-size:15px;color:var(--mut)">mais de </span>US$ 118 mil</div><div class="al">em 7 obras, em 30 dias. É o Felipe, dono da Prime Construction, subcontratado que fazia de US$ 14 mil a US$ 20 mil por mês. Média de 2 a 3 orçamentos por semana, sem 1 dólar em anúncio.<span style="display:block;margin-top:10px;font-size:12.5px;color:var(--mut-2)">Resultado de um cliente. Cada operação é diferente.</span></div></div>
+    </div>
+    <p class="sub rv" style="margin:34px auto 0;text-align:center;max-width:640px">A operação por trás da HyperJobs já atendeu mais de 100 empresas de construção.</p>
+  </div>
+</section>
+
+<!-- OFFER -->
+<section id="preco" class="offer">
+  <div class="wrap offer-grid">
+    <div class="offer-copy rv">
+      <div class="eyebrow">A oferta</div>
+      <h2 class="h2">Plano de 90 dias.<br>Com o comercial junto.</h2>
+      <p class="sub">Buscas, site e a HyperJobs vendendo. Você fecha numa conversa com o time e o sistema entra em campo.</p>
+      <ul class="offer-notes">
+        <li>Site novo com atendente de inteligência artificial</li>
+        <li>Contrato fechado de 90 dias</li>
+        <li>Suporte humano quando precisar</li>
+      </ul>
+    </div>
+    <div class="price-card rv">
+      <span class="ptag">Manda mensagem</span>
+      <div class="pbig">90 dias<small>fechado numa conversa com o time</small></div>
+      <ul class="plist">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="#21D0FD" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> <span><b>Primeiras buscas do Google e dos marketplaces</b>, na sua região, sem anúncio pago</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="#21D0FD" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> <span><b>Site novo com atendente de inteligência artificial</b>, em inglês, 24 horas por dia</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="#21D0FD" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> <span><b>Orçamento pronto no seu WhatsApp</b>, o atendente conversa e deixa tudo pronto pra você</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="#21D0FD" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> <span><b>Redes sociais</b>, da sua empresa, no ar e atualizadas</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="#21D0FD" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> <span><b>Acompanhamento do time</b>, gente de verdade, do primeiro contato ao serviço fechado</span></li>
+      </ul>
+      <a class="btn btn-primary js-wa" href="https://ig.me/m/hyperjobs" target="_blank" rel="noopener">Manda mensagem</a>
+      <div class="pfine">Fechado numa conversa · plano de 90 dias</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap" style="text-align:center">
+    <div class="eyebrow rv" style="justify-content:center">Dúvidas</div>
+    <h2 class="h2 rv">O que todo mundo pergunta.</h2>
+  </div>
+  <div class="faq">
+    <details class="rv"><summary>Preciso falar inglês?<span class="pm"></span></summary><div class="fa">Não. A conversa com o time da HyperJobs é em português. O atendente de inteligência artificial responde o cliente em inglês, 24 horas, e o orçamento chega pronto no seu WhatsApp.</div></details>
+    <details class="rv"><summary>Preciso mexer em alguma coisa técnica?<span class="pm"></span></summary><div class="fa">A HyperJobs monta o site e cuida das buscas. O que depender de você, o time explica na conversa de fechamento.</div></details>
+    <details class="rv"><summary>Em quanto tempo começa a chegar cliente?<span class="pm"></span></summary><div class="fa">Cada região é diferente. O time passa o prazo para a sua na conversa de fechamento.</div></details>
+    <details class="rv"><summary>Como cancelo?<span class="pm"></span></summary><div class="fa">O plano da HyperJobs é o contrato fechado de 90 dias, combinado numa conversa com o time.</div></details>
+  </div>
+</section>
+
+<!-- FINAL -->
+<section class="final">
+  <div class="wrap">
+    <h2 class="h2 rv">Seu próximo cliente pode te achar já nas primeiras buscas.</h2>
+    <div class="cta-row rv" style="justify-content:center"><a class="btn btn-primary js-wa" href="https://ig.me/m/hyperjobs" target="_blank" rel="noopener">Manda mensagem</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <a class="brand" href="#" aria-label="HyperJobs">
+        <img class="brand-tile" src="brand/hj-symbol.png" alt="">
+        <span class="brand-word">HyperJobs</span>
+      </a>
+      <div class="flinks">
+        <a href="#app">O sistema</a><a href="#preco">A oferta</a><a class="js-wa" href="https://ig.me/m/hyperjobs" target="_blank" rel="noopener">Manda mensagem</a>        <a class="ig-ico" href="https://instagram.com/hyperjobs" target="_blank" rel="noopener" aria-label="Instagram @hyperjobs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5.4"/><circle cx="12" cy="12" r="4"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg></a>
+      </div>
+      <div class="copy">© HyperJobs</div>
+    </div>
+  </div>
+</footer>
+
+<div class="mbar" id="mbar"><a class="btn btn-primary js-wa" href="https://ig.me/m/hyperjobs" target="_blank" rel="noopener">Manda mensagem</a></div>
+
+<!-- CHAT atendente -->
+<button class="chat-fab" id="chatFab" aria-label="Dúvidas">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.5 3 2 6.9 2 11.6c0 2.1.9 4.1 2.4 5.6L3 21.5l4.5-1.4c1.4.5 2.9.7 4.5.7 5.5 0 10-3.9 10-8.6S17.5 3 12 3z"/></svg>
+  <span class="chat-fab-lbl">Dúvidas</span>
+  <span class="chat-dot"></span>
+</button>
+<div class="chat-panel" id="chatPanel" aria-hidden="true">
+  <div class="chat-head">
+    <div class="chat-av">A</div>
+    <div class="chat-who"><b>Ana · HyperJobs</b><span><i></i> Online agora</span></div>
+    <button class="chat-x" id="chatX" aria-label="Fechar">&times;</button>
+  </div>
+  <div class="chat-body" id="chatBody"></div>
+  <div class="chat-quick" id="chatQuick"></div>
+  <form class="chat-input" id="chatForm">
+    <input id="chatText" type="text" placeholder="Escreva sua dúvida..." autocomplete="off">
+    <button type="submit" aria-label="Enviar"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.4 20.4l17.4-8.4-17.4-8.4 4.1 8.4-4.1 8.4z"/></svg></button>
+  </form>
+</div>
+
+<script>
+(function(){
+  var hd=document.getElementById('hd'),mbar=document.getElementById('mbar');
+  function s(){var y=scrollY;hd.classList.toggle('scrolled',y>20);mbar.classList.toggle('show',y>660);if(typeof nudge!=='undefined'&&nudge&&y>300)nudge.classList.remove('show');}
+  addEventListener('scroll',s,{passive:true});s();
+
+  // Destino de TODOS os botoes de contato (classe .js-wa e links do chat): uma constante so.
+  // O WhatsApp da HyperJobs ainda nao existe. Por enquanto tudo abre o Instagram @hyperjobs (a confirmar).
+  // TROCAR PELO WHATSAPP: https://wa.me/NUMERO?text=...  (NUMERO = DDI+DDD+numero, so digitos)
+  var WA_URL = 'https://ig.me/m/hyperjobs';
+  [].slice.call(document.querySelectorAll('.js-wa')).forEach(function(a){a.href=WA_URL;});
+
+  var els=[].slice.call(document.querySelectorAll('.rv'));
+  if('IntersectionObserver' in window){var io=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}});},{threshold:.14});els.forEach(function(e){io.observe(e);});}
+  else{els.forEach(function(e){e.classList.add('in');});}
+
+  // ===== chat atendente =====
+  var fab=document.getElementById('chatFab'),panel=document.getElementById('chatPanel'),cbody=document.getElementById('chatBody'),
+      quick=document.getElementById('chatQuick'),cform=document.getElementById('chatForm'),ctext=document.getElementById('chatText'),chatX=document.getElementById('chatX');
+  var started=false;
+  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function scrollB(){cbody.scrollTop=cbody.scrollHeight;}
+  function add(cls,html){var d=document.createElement('div');d.className='msg '+cls;d.innerHTML=html;cbody.appendChild(d);scrollB();}
+  function meSay(t){add('me',esc(t));}
+  function botSay(t){add('bot',t);}
+  function typing(cb){var t=document.createElement('div');t.className='typing';t.innerHTML='<i></i><i></i><i></i>';cbody.appendChild(t);scrollB();setTimeout(function(){t.remove();cb();},850+Math.random()*450);}
+  function setQuick(arr){quick.innerHTML='';arr.forEach(function(q){var b=document.createElement('button');b.type='button';b.textContent=q;b.onclick=function(){handle(q);};quick.appendChild(b);});scrollB();requestAnimationFrame(scrollB);}
+  var waLink=' <a href="'+WA_URL+'" target="_blank" rel="noopener" style="color:#21D0FD;font-weight:600">chamar por mensagem</a>';
+  var goLink='<a href="'+WA_URL+'" target="_blank" rel="noopener" style="color:#21D0FD;font-weight:600">mandar mensagem</a>';
+  function reply(m){m=m.toLowerCase();
+    if(/whats|humano|pessoa/.test(m)){botSay('Claro. É só'+waLink+' que a gente continua por lá.');setQuick(['Como funciona?','Quanto custa?']);return;}
+    if(/como funciona|funciona como|o que [eé]|como [eé]/.test(m)){botSay('É o sistema HyperJobs: primeiras buscas do Google e dos marketplaces, site novo com atendente de inteligência artificial em inglês 24 horas, e o orçamento pronto no seu WhatsApp. Quer ver a oferta?');setQuick(['Quanto custa?','Em quanto tempo começa a chegar cliente?']);return;}
+    if(/quanto tempo|prazo|demora|quando/.test(m)){botSay('Cada região é diferente. O time passa o prazo para a sua na conversa de fechamento.');setQuick(['Quanto custa?','Quero começar']);return;}
+    if(/custa|pre[çc]o|valor|plano|caro/.test(m)){botSay('O plano é de 90 dias, fechado numa conversa com o time. O valor o time passa por lá.');setQuick(['Quero começar','Manda mensagem']);return;}
+    if(/nicho|servi|remodel|paint|pintura|roof|fence|piso|floor|hvac|funciona/.test(m)){botSay('Funciona pra quem faz obra e quer fechar serviço direto com o homeowner: remodeling, painting, flooring, fence, roofing, HVAC.');setQuick(['Quanto custa?','Quero começar']);return;}
+    if(/\bia\b|intelig|serve|\bapp\b/.test(m)){botSay('É o sistema HyperJobs: primeiras buscas do Google e dos marketplaces, site novo com atendente de inteligência artificial em inglês 24 horas, e o orçamento pronto no seu WhatsApp. Quer ver a oferta?');setQuick(['Quanto custa?','Em quanto tempo começa a chegar cliente?']);return;}
+    if(/come[çc]|quero|mensagem|link|testar|assinar|\bsim\b/.test(m)){botSay('Combinado. É só '+goLink+' por aqui. Qualquer coisa, estou aqui.');setQuick(['Manda mensagem']);return;}
+    botSay('Posso te explicar sobre o sistema HyperJobs, a oferta, ou você pode'+waLink+'.');setQuick(['Quanto custa?','Como funciona?','Manda mensagem']);
+  }
+  function handle(msg){meSay(msg);quick.innerHTML='';typing(function(){reply(msg);});}
+  var nudge=document.getElementById('chatNudge'),nudgeX=document.getElementById('chatNudgeX');
+  function hideNudge(){if(nudge)nudge.classList.remove('show');}
+  function openChat(){hideNudge();panel.classList.add('open');fab.classList.add('open');panel.setAttribute('aria-hidden','false');
+    if(!started){started=true;setTimeout(function(){botSay('Oi, sou a Ana, da HyperJobs. Quer entender como o sistema funciona ou tirar uma dúvida?');setQuick(['Como funciona?','Quanto custa?','Em quanto tempo começa a chegar cliente?','Manda mensagem']);},450);}}
+  function closeChat(){panel.classList.remove('open');fab.classList.remove('open');panel.setAttribute('aria-hidden','true');}
+  if(fab){fab.addEventListener('click',openChat);chatX.addEventListener('click',closeChat);
+    cform.addEventListener('submit',function(e){e.preventDefault();var v=ctext.value.trim();if(!v)return;ctext.value='';handle(v);});
+    if(nudge){nudge.addEventListener('click',function(e){if(e.target===nudgeX)return;openChat();});
+      nudgeX.addEventListener('click',function(e){e.stopPropagation();hideNudge();});
+      setTimeout(function(){if(!started&&scrollY<300)nudge.classList.add('show');},4200);}
+  }
+})();
+</script>
+</body>
+</html>
