@@ -552,7 +552,20 @@ footer{border-top:1px solid var(--line);padding:56px 0 120px;margin-top:40px}
   // Destino de TODOS os botoes de contato (classe .js-wa e links do chat): uma constante so.
   // Todos os botoes de contato abrem o WhatsApp da HyperJobs: +1 (323) 554-0369, com a mensagem inicial ja escrita.
   // Para trocar o numero ou a mensagem: https://wa.me/NUMERO?text=...  (NUMERO = DDI+DDD+numero, so digitos)
-  var WA_URL = 'https://wa.me/13235540369?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20HyperJobs%20e%20quero%20saber%20mais.';
+  // Visita que veio do Google Ads (gclid/gbraid/wbraid ou utm_source=google) fica marcada por 30 dias,
+  // e a mensagem inicial do WhatsApp avisa isso; o CRM le a mensagem e grava a origem "Google Ads".
+  var HJ_ORIGEM = 'site';
+  try {
+    var q = new URLSearchParams(location.search);
+    var veioDoGoogle = q.get('gclid') || q.get('gbraid') || q.get('wbraid') || /^(google|adwords)$/i.test(q.get('utm_source') || '');
+    if (veioDoGoogle) { localStorage.setItem('hj_origem', JSON.stringify({o: 'google', t: Date.now()})); }
+    var salvo = JSON.parse(localStorage.getItem('hj_origem') || 'null');
+    if (veioDoGoogle || (salvo && salvo.o === 'google' && Date.now() - salvo.t < 30 * 864e5)) { HJ_ORIGEM = 'google'; }
+  } catch (eO) {}
+  var WA_TEXTO = HJ_ORIGEM === 'google'
+    ? 'Olá! Vi o anúncio da HyperJobs no Google e quero saber mais.'
+    : 'Olá! Vim pelo site da HyperJobs e quero saber mais.';
+  var WA_URL = 'https://wa.me/13235540369?text=' + encodeURIComponent(WA_TEXTO);
   [].slice.call(document.querySelectorAll('.js-wa')).forEach(function(a){a.href=WA_URL;});
 
   var els=[].slice.call(document.querySelectorAll('.rv'));
