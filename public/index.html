@@ -554,16 +554,32 @@ footer{border-top:1px solid var(--line);padding:56px 0 120px;margin-top:40px}
   // Para trocar o numero ou a mensagem: https://wa.me/NUMERO?text=...  (NUMERO = DDI+DDD+numero, so digitos)
   // Visita que veio do Google Ads (gclid/gbraid/wbraid ou utm_source=google) fica marcada por 30 dias,
   // e a mensagem inicial do WhatsApp avisa isso; o CRM le a mensagem e grava a origem "Google Ads".
-  var HJ_ORIGEM = 'site';
+  // Cada visita de anuncio ganha um codigo curto ("ref"), enviado ao CRM junto com campanha, grupo, anuncio e
+  // palavra-chave (parametros do "Sufixo do URL final" do Google Ads). O codigo vai no fim da mensagem do WhatsApp
+  // e o CRM liga o lead ao anuncio que o trouxe.
+  var HJ_CRM = 'https://crm-scale.ricardoneto.workers.dev';
+  var HJ_ORIGEM = 'site', HJ_REF = '';
   try {
     var q = new URLSearchParams(location.search);
     var veioDoGoogle = q.get('gclid') || q.get('gbraid') || q.get('wbraid') || /^(google|adwords)$/i.test(q.get('utm_source') || '');
-    if (veioDoGoogle) { localStorage.setItem('hj_origem', JSON.stringify({o: 'google', t: Date.now()})); }
+    if (veioDoGoogle) {
+      var abc = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789', rnd = new Uint8Array(5), ref = '';
+      crypto.getRandomValues(rnd); for (var i = 0; i < 5; i++) ref += abc[rnd[i] % abc.length];
+      var params = {};
+      ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','campaignid','adgroupid','creative','keyword','matchtype','gclid','gbraid','wbraid'].forEach(function(k){ if (q.get(k)) params[k] = q.get(k); });
+      var dados = JSON.stringify({ ref: ref, params: params, pagina: location.pathname });
+      try {
+        if (!(navigator.sendBeacon && navigator.sendBeacon(HJ_CRM + '/api/visita', new Blob([dados], { type: 'text/plain' })))) {
+          fetch(HJ_CRM + '/api/visita', { method: 'POST', body: dados, keepalive: true, mode: 'cors' });
+        }
+      } catch (eB) {}
+      localStorage.setItem('hj_origem', JSON.stringify({o: 'google', t: Date.now(), ref: ref}));
+    }
     var salvo = JSON.parse(localStorage.getItem('hj_origem') || 'null');
-    if (veioDoGoogle || (salvo && salvo.o === 'google' && Date.now() - salvo.t < 30 * 864e5)) { HJ_ORIGEM = 'google'; }
+    if (salvo && salvo.o === 'google' && Date.now() - salvo.t < 30 * 864e5) { HJ_ORIGEM = 'google'; HJ_REF = salvo.ref || ''; }
   } catch (eO) {}
   var WA_TEXTO = HJ_ORIGEM === 'google'
-    ? 'Olá! Vi o anúncio da HyperJobs no Google e quero saber mais.'
+    ? 'Olá! Vi o anúncio da HyperJobs no Google e quero saber mais.' + (HJ_REF ? ' (ref ' + HJ_REF + ')' : '')
     : 'Olá! Vim pelo site da HyperJobs e quero saber mais.';
   var WA_URL = 'https://wa.me/13235540369?text=' + encodeURIComponent(WA_TEXTO);
   [].slice.call(document.querySelectorAll('.js-wa')).forEach(function(a){a.href=WA_URL;});
